@@ -1,0 +1,10 @@
+/build/bin/
+/dist/
+/.toolchain/
+/frontend/node_modules/
+/frontend/dist/
+/frontend/wailsjs/
+.DS_Store
+/frontend/package.json.md5
+*.tgz
+*.log

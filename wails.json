@@ -1,0 +1,17 @@
+{
+  "$schema": "https://wails.io/schemas/config.v2.json",
+  "name": "DataKit Manager",
+  "outputfilename": "datakit-manager",
+  "frontend:install": "npm install --no-audit --no-fund",
+  "frontend:build": "npm run build",
+  "frontend:dev:watcher": "npm run dev",
+  "frontend:dev:serverUrl": "auto",
+  "author": {
+    "name": "DataKit Manager"
+  },
+  "info": {
+    "productName": "DataKit Manager",
+    "productVersion": "1.3.0",
+    "comments": "多集群 DataKit 配置管理工具"
+  }
+}

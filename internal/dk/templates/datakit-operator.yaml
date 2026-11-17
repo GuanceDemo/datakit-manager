@@ -1,0 +1,257 @@
+## DataKit-Operator (@APP_VERSION) Configuration YAML
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: datakit-operator
+rules:
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["logging.datakits.io"]
+  resources: ["clusterloggingconfigs"]
+  verbs: ["get", "list", "watch"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: datakit-operator
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: datakit-operator
+subjects:
+- kind: ServiceAccount
+  name: datakit-operator
+  namespace: datakit
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: datakit-operator
+  namespace: datakit
+
+---
+# Election Leases are created on demand; only their RBAC is installed here.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: datakit-operator-election
+  namespace: datakit
+rules:
+- apiGroups: ["coordination.k8s.io"]
+  resources: ["leases"]
+  verbs: ["get", "list", "watch", "create", "update", "patch"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: datakit-operator-election
+  namespace: datakit
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: datakit-operator-election
+subjects:
+- kind: ServiceAccount
+  name: datakit-operator
+  namespace: datakit
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: datakit-operator
+  namespace: datakit
+spec:
+  selector:
+    app: datakit-operator
+  ports:
+    - name: http
+      port: 443
+      targetPort: 9543
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: datakit-operator-config
+  namespace: datakit
+data:
+  jsonconfig: |-
+    {
+        "server_listen": "0.0.0.0:9543",
+        "log_level":     "info",
+        "admission_inject_v2": {
+            "ddtraces": [
+                {
+                    "language": "java",
+                    "namespace_selectors": ["default"],
+                    "label_selectors":     [],
+                    "check_annotation":    false,
+                    "image":    "(@BRAND_REPO_DATAKIT_OPERATOR)/dd-lib-java-init:v1.60.4-ext",
+                    "image_pull_policy": "Always",
+                    "envs": {
+                        "DD_AGENT_HOST":           "datakit-service.datakit.svc.cluster.local",
+                        "DD_TRACE_AGENT_PORT":     "9529",
+                        "DD_JMXFETCH_STATSD_HOST": "datakit-service.datakit.svc.cluster.local",
+                        "DD_JMXFETCH_STATSD_PORT": "8125",
+                        "DD_SERVICE":              "{fieldRef:metadata.labels['app']}",
+                        "POD_NAME":                "{fieldRef:metadata.name}",
+                        "POD_NAMESPACE":           "{fieldRef:metadata.namespace}",
+                        "NODE_NAME":               "{fieldRef:spec.nodeName}",
+                        "DD_TAGS":                 "pod_name:$(POD_NAME),pod_namespace:$(POD_NAMESPACE),host:$(NODE_NAME)"
+                    }
+                }
+            ],
+            "otels": [],
+            "logfwds": [
+                {
+                    "namespace_selectors": ["default"],
+                    "label_selectors":     [],
+                    "image": "(@BRAND_REPO_DATAKIT)/logfwd:1.93.0",
+                    "image_pull_policy": "Always",
+                    "envs": {
+                        "LOGFWD_DATAKIT_HOST":              "{fieldRef:status.hostIP}",
+                        "LOGFWD_DATAKIT_PORT":              "9533",
+                        "LOGFWD_DATAKIT_OPERATOR_ENDPOINT": "datakit-operator.datakit.svc:443",
+                        "LOGFWD_GLOBAL_SERVICE":            "{fieldRef:metadata.labels['app']}",
+                        "LOGFWD_POD_NAME":                  "{fieldRef:metadata.name}",
+                        "LOGFWD_POD_NAMESPACE":             "{fieldRef:metadata.namespace}",
+                        "LOGFWD_POD_IP":                    "{fieldRef:status.podIP}"
+                    },
+                    "resources": {
+                        "requests": {
+                            "cpu":    "100m",
+                            "memory": "128Mi"
+                        },
+                        "limits": {
+                           "cpu":    "200m",
+                           "memory": "256Mi"
+                        }
+                    },
+                    "log_configs": "",
+                    "log_volume_paths": []
+                }
+            ],
+            "flameshots": [
+                {
+                    "namespace_selectors": ["default"],
+                    "label_selectors":     [],
+                    "image": "(@BRAND_REPO_DATAKIT)/flameshot:0.2.4",
+                    "image_pull_policy": "Always",
+                    "envs": {
+                        "FLAMESHOT_DATAKIT_ADDR":     "http://datakit-service.datakit:9529/profiling/v1/input",
+                        "FLAMESHOT_MONITOR_INTERVAL": "10s",
+                        "FLAMESHOT_LOG_LEVEL":        "info",
+                        "FLAMESHOT_PROFILING_PATH":   "/flameshot-data",
+                        "FLAMESHOT_LOG_PATH":         "/var/log/flameshot.log",
+                        "FLAMESHOT_HTTP_LOCAL_PORT":  "8089",
+                        "FLAMESHOT_POD_CPU_LIMIT":    "{resourceFieldRef:limits.cpu}",
+                        "FLAMESHOT_POD_MEM_LIMIT":    "{resourceFieldRef:limits.memory}"
+                    },
+                    "resources": {
+                        "requests": {
+                            "cpu":    "100m",
+                            "memory": "128Mi"
+                        },
+                        "limits": {
+                           "cpu":    "200m",
+                           "memory": "256Mi"
+                        }
+                    },
+                    "processes": "",
+                    "enable_prometheus_annotations": true
+                }
+            ]
+        },
+        "admission_mutate": {
+            "loggings": [
+                {
+                    "namespace_selectors": [],
+                    "label_selectors":     [],
+                    "config": ""
+                }
+            ]
+        }
+    }
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: datakit-operator
+  namespace: datakit
+  labels:
+    app: datakit-operator
+spec:
+  replicas: 1  # Do not change the ReplicaSet number!
+  selector:
+     matchLabels:
+       app: datakit-operator
+  template:
+    metadata:
+      labels:
+        app: datakit-operator
+    spec:
+      serviceAccountName: datakit-operator
+      containers:
+        - name: operator
+          image: (@REPOSITORY):(@APP_VERSION)
+          imagePullPolicy: Always
+          env:
+          - name: ENV_JSON_CONFIG
+            valueFrom:
+              configMapKeyRef:
+                name: datakit-operator-config
+                key: jsonconfig
+          - name: POD_NAMESPACE
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace
+          ports:
+            - name: http
+              containerPort: 9543
+          readinessProbe:
+            httpGet:
+              path: /v1/ping
+              port: http
+              scheme: HTTPS
+            periodSeconds: 3
+            timeoutSeconds: 2
+            failureThreshold: 3
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "64Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: datakit-operator-mutation
+webhooks:
+  - name: "mutation.datakit.svc"
+    rules:
+      - operations: ["CREATE"]
+        apiGroups: [""]
+        apiVersions: ["v1"]
+        resources: ["pods"]
+        scope: "Namespaced"
+    clientConfig:
+      service:
+        namespace: datakit
+        name: datakit-operator
+        path: "/v1/webhooks/inject"
+      caBundle: (@CABUNDLE)
+    admissionReviewVersions: ["v1"]
+    sideEffects: None
+    timeoutSeconds: 5
+    reinvocationPolicy: IfNeeded
+    failurePolicy: Ignore

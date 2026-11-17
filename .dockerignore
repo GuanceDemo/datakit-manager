@@ -1,0 +1,7 @@
+.toolchain
+dist
+build/bin
+frontend/node_modules
+frontend/dist
+frontend/wailsjs
+.git

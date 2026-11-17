@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" version="1.1" viewBox="0 0 120 60">
+  <!-- Generator: Adobe Illustrator 29.2.1, SVG Export Plug-In . SVG Version: 2.1.0 Build 116)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: url(#_未命名的渐变);
+        fill-rule: evenodd;
+      }
+    </style>
+    <linearGradient id="_未命名的渐变" data-name="未命名的渐变" x1="-39.5" y1="4" x2="76.6" y2="4" gradientTransform="translate(20.3 30.4) scale(.3 -.3)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7acbbf"/>
+      <stop offset="1" stop-color="#3ea4db"/>
+    </linearGradient>
+  </defs>
+  <sodipodi:namedview id="namedview318" bordercolor="#666666" borderopacity="1" gridtolerance="10" guidetolerance="10" inkscape:current-layer="Layer_1" inkscape:cx="149.78761" inkscape:cy="57.5" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-height="1001" inkscape:window-maximized="1" inkscape:window-width="1920" inkscape:window-x="-9" inkscape:window-y="-9" inkscape:zoom="3.7252747" objecttolerance="10" pagecolor="#ffffff" showgrid="false"/>
+  <g id="g1313">
+    <path id="path25" class="st0" d="M43,21.1l-3.9-.6-1.4-1.7,2.1-1,3.4.4,1.8,1.6-2,1.2ZM34.1,18.3l-.9-1.4,2.1-.8,3,.4,1.3,1.3-2.1,1-3.4-.5ZM31.5,19.3l-3.3-.5-.6-1.4,2.4-.9,3,.4.9,1.4-2.4,1.1ZM25.2,20l-3.3-.5-.2-1.5,2.7-.9,3,.4.6,1.4-2.8,1.1ZM25.5,21.9l-3.3,1.5-3.7-.7v-2c0,0,3.3-1.2,3.3-1.2l3.3.5.5,1.9ZM12.4,34.5l-4.8-1.4,1.2-3.8,4.9-2.2,4.2,1-.2,3.5-5.4,2.9ZM17.9,31.9l5,1.3.5,4.8-5.9,4.1-5.9-2,1-5.3,5.4-2.9ZM27.8,30.4l5.2,1.2,1.7,4.4-4.6,3.7-6.2-1.8-.5-4.8,4.4-2.7ZM27.9,30.2l-.8-3.2,3.5-1.9,4.4.8,1.6,3-3.5,2.4-5.1-1.2ZM30.5,25l-.9-2.3,2.9-1.4,3.8.6,1.5,2.2-2.9,1.7-4.4-.8ZM37.3,18.8l1.4,1.7-2.4,1.3-3.8-.6-1-1.7,2.4-1.1,3.4.5ZM30.2,25l-3.5,1.9-4.3-.9-.3-2.5,3.3-1.5,3.8.7.9,2.3ZM28,18.9l3.3.5.9,1.8-2.9,1.4-3.7-.6-.5-1.9,2.8-1.1Z" inkscape:connector-curvature="0"/>
+    <g id="Ellipse_1">
+      <g id="g29">
+        <path id="path27" d="M17.7,40.3c-1.2.2-2.2,1.2-2.3,2.3-.1,1.1.9,1.9,2.1,1.7,1.3-.3,2.3-1.4,2.3-2.5,0-1.1-.9-1.7-2.1-1.5Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Ellipse_1_copy">
+      <g id="g34">
+        <path id="path32" d="M18.1,30.6c-.9.1-1.7.7-1.8,1.4,0,.7.7,1.1,1.7,1,1-.1,1.7-.8,1.7-1.5,0-.6-.7-1-1.6-.9Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Ellipse_1_copy_4">
+      <g id="g39">
+        <path id="path37" d="M13.6,33.4c-.8-.2-2,.2-2.6.9-.7.7-.6,1.6.3,1.8.9.3,2.1-.2,2.7-1,.6-.7.4-1.5-.4-1.7Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Ellipse_1_copy_5">
+      <g id="g44">
+        <path id="path42" d="M24.4,36.4c-.9-.3-2.1.2-2.6,1-.5.9-.1,1.9.9,2.2,1,.3,2.2-.2,2.7-1.1.4-.9,0-1.8-1-2.1Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Polygon_1">
+      <g id="g49">
+        <path id="path47" d="M23.9,32.6l-5.8-1.5-6.3,3.3-1.3,6.2,7.1,2.4,7-5-.7-5.6ZM17.7,41.5l-5.5-1.8.8-4.8,5-2.7,4.7,1.2.4,4.4-5.4,3.7Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Ellipse_1_copy_2">
+      <g id="g54">
+        <path id="path52" d="M13.5,38.9c-.5-.7-1.7-.8-2.7-.1-1.1.7-1.7,1.8-1.3,2.6.4.8,1.7.9,2.9.1,1.1-.7,1.6-1.9,1.2-2.6Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Ellipse_1_copy_3">
+      <g id="g59">
+        <path id="path57" d="M24.5,32.2c-.5-.5-1.6-.5-2.3,0-.8.5-1,1.3-.5,1.8.5.6,1.7.6,2.5.1.8-.5.9-1.3.4-1.8Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Ellipse_1_copy1" data-name="Ellipse_1_copy">
+      <g id="g64">
+        <path id="path62" d="M14,26.3c-.8,0-1.5.6-1.7,1-.1.5.5.8,1.3.7.8-.1,1.6-.6,1.7-1.1,0-.5-.5-.8-1.3-.7Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Ellipse_1_copy_41" data-name="Ellipse_1_copy_4">
+      <g id="g69">
+        <path id="path67" d="M9.9,28.4c-.7-.2-1.7.1-2.3.6-.6.5-.6,1.1,0,1.3.7.2,1.8-.1,2.4-.7.6-.5.5-1.1-.2-1.3Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Polygon_11" data-name="Polygon_1">
+      <g id="g74">
+        <path id="path72" d="M13.9,26.7l-5.7,2.5-1.6,4.5,5.7,1.7,6.4-3.5v-4.1c0,0-4.8-1.1-4.8-1.1ZM17.5,31.6l-5,2.6-4.4-1.3,1.1-3.5,4.6-2,3.9.9-.2,3.2Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Ellipse_1_copy_21" data-name="Ellipse_1_copy_2">
+      <g id="g79">
+        <path id="path77" d="M9.3,32.4c-.3-.5-1.3-.5-2.3,0-1,.5-1.6,1.3-1.3,1.8.3.6,1.4.6,2.4.1,1-.5,1.5-1.3,1.2-1.8Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Ellipse_1_copy_31" data-name="Ellipse_1_copy_3">
+      <g id="g84">
+        <path id="path82" d="M19.4,27.5c-.4-.4-1.3-.4-2,0-.7.3-1,.9-.7,1.4.4.4,1.3.5,2.1,0,.7-.4,1-1,.6-1.4Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Ellipse_11" data-name="Ellipse_1">
+      <g id="g89">
+        <path id="path87" d="M32.2,39.4c-.3-.9-1.4-1.5-2.4-1.3-1.1.2-1.8,1.1-1.6,2.1.2,1,1.3,1.7,2.5,1.5,1.1-.2,1.8-1.2,1.5-2.2Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Ellipse_1_copy2" data-name="Ellipse_1_copy">
+      <g id="g94">
+        <path id="path92" d="M29.4,30.1c-.2-.6-1-.9-1.8-.8-.8.1-1.4.7-1.3,1.3.1.6,1,1,1.9.9.9-.1,1.4-.7,1.3-1.3Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Ellipse_1_copy_51" data-name="Ellipse_1_copy_5">
+      <g id="g99">
+        <path id="path97" d="M35.2,34.6c-1-.2-1.9.2-2.2.9-.2.8.4,1.7,1.4,2,1.1.3,2.1-.2,2.2-1,.2-.8-.5-1.6-1.5-1.9Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Polygon_12" data-name="Polygon_1">
+      <g id="g104">
+        <path id="path102" d="M33.7,31.1l-6-1.3-5.1,3.1.5,5.7,7.4,2.2,5.3-4.5-2.1-5.1ZM30.1,39.2l-5.7-1.6-.5-4.4,4.1-2.5,4.8,1.1,1.6,4.1-4.2,3.4Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Ellipse_1_copy_32" data-name="Ellipse_1_copy_3">
+      <g id="g109">
+        <path id="path107" d="M34.2,30.7c-.6-.5-1.7-.5-2.3,0-.6.4-.7,1.2,0,1.7.7.5,1.8.6,2.4,0,.6-.5.6-1.2-.1-1.7Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Ellipse_1_copy3" data-name="Ellipse_1_copy">
+      <g id="g114">
+        <path id="path112" d="M31.8,24.9c-.2-.4-.9-.7-1.6-.6-.7,0-1.2.5-1,.9.2.4.9.7,1.6.6.7,0,1.2-.5,1-1Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Ellipse_1_copy_42" data-name="Ellipse_1_copy_4">
+      <g id="g119">
+        <path id="path117" d="M27.5,26.2c-.7-.1-1.5.1-1.8.6-.3.5,0,1,.8,1.1.8.2,1.6-.1,1.9-.6.3-.5-.1-1-.8-1.1Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Ellipse_1_copy_52" data-name="Ellipse_1_copy_5">
+      <g id="g124">
+        <path id="path122" d="M37,28.1c-.8-.2-1.6.1-1.8.6-.2.5.4,1.1,1.2,1.3.9.2,1.7-.1,1.8-.7.1-.5-.5-1.1-1.3-1.3Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Polygon_13" data-name="Polygon_1">
+      <g id="g129">
+        <path id="path127" d="M35.5,25.7l-5.1-.9-4.1,2.2.9,3.8,6.1,1.4,4.1-2.9-2-3.5ZM33,31.2l-4.7-1.1-.8-3,3.2-1.8,4.1.8,1.5,2.8-3.3,2.2Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Ellipse_1_copy_33" data-name="Ellipse_1_copy_3">
+      <g id="g134">
+        <path id="path132" d="M35.9,25.4c-.6-.3-1.4-.4-1.9,0-.5.3-.5.8,0,1.2.6.4,1.5.4,2,0,.5-.3.4-.8-.2-1.2Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Ellipse_1_copy4" data-name="Ellipse_1_copy">
+      <g id="g139">
+        <path id="path137" d="M26.8,21.9c0-.3-.7-.5-1.3-.5-.6,0-1.1.4-1,.7,0,.3.7.6,1.3.5.7,0,1.1-.4,1-.7Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Ellipse_1_copy_43" data-name="Ellipse_1_copy_4">
+      <g id="g144">
+        <path id="path142" d="M22.8,22.9c-.6-.1-1.4,0-1.7.4-.3.4,0,.8.5.9.6.1,1.4,0,1.7-.5.3-.4,0-.7-.6-.9Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Polygon_14" data-name="Polygon_1">
+      <g id="g149">
+        <path id="path147" d="M30,22.4l-4.4-.7-3.9,1.7.3,2.9,5.1,1.1,4.1-2.2-1.1-2.7ZM26.9,26.7l-3.9-.8-.3-2.3,3.1-1.4,3.5.6.8,2.2-3.2,1.7Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Ellipse_1_copy_22" data-name="Ellipse_1_copy_2">
+      <g id="g154">
+        <path id="path152" d="M23.6,25.5c-.4-.3-1.3-.4-1.9,0-.6.3-.8.8-.4,1.2.4.4,1.3.4,2,0,.6-.3.8-.9.4-1.2Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Ellipse_1_copy_34" data-name="Ellipse_1_copy_3">
+      <g id="g159">
+        <path id="path157" d="M30.4,22.2c-.4-.3-1.2-.3-1.7,0-.5.2-.6.6-.1.9.5.3,1.2.3,1.8,0,.5-.2.5-.7,0-.9Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Ellipse_1_copy5" data-name="Ellipse_1_copy">
+      <g id="g164">
+        <path id="path162" d="M33.6,21.1c-.2-.3-.8-.5-1.4-.4-.6,0-1,.4-.8.7.2.3.8.5,1.4.5.6,0,1-.4.8-.7Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Ellipse_1_copy_53" data-name="Ellipse_1_copy_5">
+      <g id="g169">
+        <path id="path167" d="M38.2,23.4c-.7-.1-1.3,0-1.5.5-.1.4.4.8,1.1.9.7.1,1.4,0,1.5-.5,0-.4-.4-.8-1.1-.9Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Polygon_15" data-name="Polygon_1">
+      <g id="g174">
+        <path id="path172" d="M36.9,21.7l-4.5-.7-3.3,1.6,1,2.7,5.2,1,3.4-2.1-1.8-2.5ZM34.9,25.6l-4-.8-.9-2.1,2.6-1.3,3.6.6,1.4,2-2.7,1.6Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Ellipse_1_copy_35" data-name="Ellipse_1_copy_3">
+      <g id="g179">
+        <path id="path177" d="M37.2,21.5c-.5-.2-1.2-.3-1.7,0-.4.2-.4.6.1.9.5.3,1.3.3,1.7,0,.4-.2.3-.6-.2-.9Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Ellipse_1_copy6" data-name="Ellipse_1_copy">
+      <g id="g184">
+        <path id="path182" d="M35,18.2c-.2-.2-.7-.4-1.3-.3-.5,0-.8.3-.7.5.2.2.7.4,1.3.4.5,0,.8-.3.7-.5Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Ellipse_1_copy_44" data-name="Ellipse_1_copy_4">
+      <g id="g189">
+        <path id="path187" d="M31.8,19c-.6,0-1.1,0-1.3.3-.2.3.2.5.7.6.6,0,1.2,0,1.3-.3.1-.3-.2-.5-.8-.6Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Ellipse_1_copy_54" data-name="Ellipse_1_copy_5">
+      <g id="g194">
+        <path id="path192" d="M39.1,20c-.6,0-1.2,0-1.3.3,0,.3.3.6,1,.7.6,0,1.2,0,1.3-.4,0-.3-.4-.6-1-.7Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Polygon_16" data-name="Polygon_1">
+      <g id="g199">
+        <path id="path197" d="M37.9,18.7l-3.9-.5-2.8,1.2,1.1,2.1,4.5.7,2.8-1.5-1.7-1.9ZM36.3,21.6l-3.5-.6-.9-1.6,2.2-1,3.2.4,1.3,1.5-2.2,1.2Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Ellipse_1_copy_23" data-name="Ellipse_1_copy_2">
+      <g id="g204">
+        <path id="path202" d="M33.3,20.8c-.5-.2-1.2-.2-1.6,0-.4.2-.5.6,0,.8.5.2,1.2.3,1.7,0,.4-.2.4-.6,0-.8Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Ellipse_1_copy_36" data-name="Ellipse_1_copy_3">
+      <g id="g209">
+        <path id="path207" d="M38.2,18.5c-.5-.2-1.1-.2-1.5,0-.4.2-.3.5.1.7.5.2,1.1.2,1.5,0,.4-.2.3-.5-.2-.7Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Ellipse_1_copy7" data-name="Ellipse_1_copy">
+      <g id="g214">
+        <path id="path212" d="M21.7,19.1c-.6,0-1,.3-1,.6,0,.3.5.5,1.1.4.6,0,1.1-.3,1-.6,0-.3-.5-.4-1.1-.4Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Ellipse_1_copy_45" data-name="Ellipse_1_copy_4">
+      <g id="g219">
+        <path id="path217" d="M19.1,20.2c-.5,0-1.2,0-1.6.3-.3.3-.2.6.4.7.6,0,1.3,0,1.6-.4.3-.3.1-.6-.4-.7Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Polygon_17" data-name="Polygon_1">
+      <g id="g224">
+        <path id="path222" d="M25.6,19.9l-3.8-.6-3.7,1.4v2.3c-.1,0,4.2.8,4.2.8l3.9-1.7-.6-2.2ZM22.2,23.2l-3.4-.6v-1.8s3-1.1,3-1.1l3.1.5.4,1.7-3.1,1.3Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Ellipse_1_copy_24" data-name="Ellipse_1_copy_2">
+      <g id="g229">
+        <path id="path227" d="M19.5,22.3c-.3-.3-1.1-.3-1.7,0-.6.2-.8.7-.5.9.3.3,1.1.3,1.7,0,.6-.3.8-.7.5-.9Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Ellipse_1_copy_37" data-name="Ellipse_1_copy_3">
+      <g id="g234">
+        <path id="path232" d="M26,19.7c-.4-.2-1-.2-1.5,0-.5.2-.6.5-.2.7.4.2,1.1.2,1.6,0,.5-.2.6-.5.2-.7Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Ellipse_1_copy8" data-name="Ellipse_1_copy">
+      <g id="g239">
+        <path id="path237" d="M25.3,16.9c0-.2-.5-.3-1-.3-.5,0-.9.3-.9.5,0,.2.5.4,1,.3.5,0,.9-.3.8-.5Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Ellipse_1_copy_46" data-name="Ellipse_1_copy_4">
+      <g id="g244">
+        <path id="path242" d="M22.1,17.5c-.5,0-1.1,0-1.3.3-.3.2,0,.5.4.6.5,0,1.1,0,1.4-.3.2-.2,0-.5-.4-.5Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Ellipse_1_copy_55" data-name="Ellipse_1_copy_5">
+      <g id="g249">
+        <path id="path247" d="M28.3,18.5c-.5,0-1.1,0-1.3.3-.2.2,0,.5.6.6.6,0,1.2,0,1.3-.3.2-.3-.1-.5-.6-.6Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Polygon_18" data-name="Polygon_1">
+      <g id="g254">
+        <path id="path252" d="M27.8,17.3l-3.4-.5-3.2,1.1.2,1.8,3.9.6,3.3-1.3-.7-1.7ZM25.1,19.9l-3-.5-.2-1.4,2.5-.9,2.8.4.5,1.3-2.6,1Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Ellipse_1_copy_38" data-name="Ellipse_1_copy_3">
+      <g id="g259">
+        <path id="path257" d="M28.1,17.1c-.3-.2-.9-.2-1.3,0-.4.1-.5.4-.2.6.3.2,1,.2,1.4,0,.4-.2.5-.4.1-.6Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Ellipse_1_copy9" data-name="Ellipse_1_copy">
+      <g id="g264">
+        <path id="path262" d="M30.9,16.4c-.1-.2-.6-.3-1.1-.3-.5,0-.8.2-.7.4.1.2.6.3,1.1.3.5,0,.8-.3.7-.5Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Polygon_19" data-name="Polygon_1">
+      <g id="g269">
+        <path id="path267" d="M33.4,16.8l-3.5-.4-2.8,1,.6,1.7,3.9.6,2.8-1.3-1.1-1.6ZM31.5,19.2l-3.1-.5-.6-1.3,2.2-.8,2.8.4.9,1.3-2.2,1Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Ellipse_1_copy_39" data-name="Ellipse_1_copy_3">
+      <g id="g274">
+        <path id="path272" d="M33.7,16.6c-.4-.2-1-.2-1.3,0-.4.1-.4.4,0,.6.4.2,1,.2,1.4,0,.4-.1.3-.4,0-.6Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Ellipse_1_copy10" data-name="Ellipse_1_copy">
+      <g id="g279">
+        <path id="path277" d="M36.1,16c-.2-.2-.7-.3-1.1-.3-.5,0-.7.2-.6.4.2.2.7.3,1.2.3.5,0,.7-.2.6-.4Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Ellipse_1_copy_56" data-name="Ellipse_1_copy_5">
+      <g id="g284">
+        <path id="path282" d="M39.7,17.4c-.5,0-1,0-1.1.3,0,.2.3.5.9.5.6,0,1.1,0,1.1-.3,0-.2-.4-.5-.9-.5Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Polygon_110" data-name="Polygon_1">
+      <g id="g289">
+        <path id="path287" d="M38.6,16.3l-3.5-.4-2.5,1,1.1,1.6,4,.6,2.4-1.2-1.5-1.5ZM37.4,18.6l-3.1-.4-.9-1.3,1.9-.8,2.8.3,1.2,1.2-1.9.9Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Ellipse_1_copy_310" data-name="Ellipse_1_copy_3">
+      <g id="g294">
+        <path id="path292" d="M38.9,16.2c-.4-.1-1-.2-1.3,0-.3.1-.3.4.2.5.4.2,1,.2,1.3,0,.3-.1.2-.4-.2-.5Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Ellipse_12" data-name="Ellipse_1">
+      <g id="g299">
+        <path id="path297" d="M44,21c-.3-.3-1-.5-1.6-.4-.6,0-.8.4-.5.7.3.3,1,.5,1.6.5.6,0,.8-.4.5-.7Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Ellipse_1_copy_57" data-name="Ellipse_1_copy_5">
+      <g id="g304">
+        <path id="path302" d="M45,19.4c-.6,0-1.1,0-1.1.3,0,.3.5.6,1.1.7.6,0,1.2,0,1.2-.3,0-.3-.5-.6-1.2-.6Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Polygon_111" data-name="Polygon_1">
+      <g id="g309">
+        <path id="path307" d="M43.5,18.1l-4-.5-2.4,1.2,1.6,2,4.6.7,2.4-1.5-2.1-1.8ZM42.8,20.9l-3.6-.5-1.3-1.5,1.9-.9,3.2.4,1.6,1.5-1.9,1.1Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+    <g id="Ellipse_1_copy_311" data-name="Ellipse_1_copy_3">
+      <g id="g314">
+        <path id="path312" d="M43.8,17.9c-.5-.2-1.1-.2-1.4,0-.3.2-.2.4.3.6.5.2,1.2.2,1.5,0,.3-.2.1-.5-.4-.6Z" inkscape:connector-curvature="0"/>
+      </g>
+    </g>
+  </g>
+</svg>
