@@ -45,6 +45,7 @@ DataKit Manager 把这些步骤收进一个界面：它先检查每个集群 / �
 | 预览后应用 | 每次修改先展示将执行的操作和内容 diff，应用后自动重启 DataKit 并显示进度；变更前自动备份 |
 | 一键安装 DataKit | 集群用官方 `datakit.yaml`（应用前可查看和修改），主机用官方安装程序 |
 | DataKit Operator | 一键安装，并用表单（或 JSON）配置 DDTrace / OpenTelemetry 探针注入、logfwd、flameshot、Profiler、日志注解 |
+| 导出 Bug Report | 一键在指定的 DataKit 实例上收集 Bug Report 并取回 zip；集群里按 Pod 导出，可按节点筛选 |
 | 批量安装 | 勾选多个集群 / 主机，一次装好 DataKit 或 DataKit Operator |
 | 离线环境 | 集群：改写镜像地址并给出推送到私有仓库的命令；主机：本机下载安装包后经 SSH 上传；Windows 有纯离线包 |
 | 凭据加密 | 导入的 kubeconfig 和 SSH 私钥以 AES-256-GCM 加密后落盘 |
@@ -106,6 +107,10 @@ DataKit Manager 把这些步骤收进一个界面：它先检查每个集群 / �
 **导入 SSH 密钥**：一把密钥对应多台主机。
 
 ![导入 SSH 密钥](docs/screenshots/import-ssh.png)
+
+**导出 Bug Report**：选择具体的 Pod（显示所在节点，可筛选），一键导出。
+
+![导出 Bug Report](docs/screenshots/bug-report.png)
 
 **批量安装**：勾选资产，选择产品，一键安装。
 
@@ -182,6 +187,23 @@ DataKit Manager 把这些步骤收进一个界面：它先检查每个集群 / �
 - 集群可以选私有仓库（给出镜像推送命令），主机可以选离线上传。
 - 每个资产单独显示结果，一个失败不影响其它。
 
+### 8. 导出 Bug Report
+
+排查 DataKit 问题、向观测云提交工单时，通常需要一份 Bug Report。概览页的“导出 Bug Report”按钮会在选定的 DataKit 实例上执行
+`datakit debug --bug-report`，把生成的 zip 取回本机。
+
+- **Bug Report 是按实例收集的**。集群里每个 Pod 是一个实例：弹窗列出全部 DataKit Pod 及其所在节点、IP、状态，
+  可以按节点名 / Pod 名 / IP 搜索，也可以用“节点”列的筛选和排序，选中出问题的那个 Pod 再导出。主机只有一个实例，直接导出。
+- **选项**：“不采集 profile”（DataKit 负载已经很高时使用）；“指标采样次数”（默认 3）。
+- **保存**：桌面版弹出保存对话框（默认“下载”目录）；Web 版由浏览器下载。文件名形如
+  `bugreport-<集群>-<节点>-<Pod>-<时间>.zip`，便于区分来自哪个实例。
+- 收集通常需要 1 分钟左右。建议在问题出现时（如 CPU / 内存偏高）导出，指标和 profile 才有参考价值。
+- DataKit 会自动遮盖 token、密码等，但文件里仍可能有敏感信息，外发前请检查。
+- 过程中在 Pod / 主机的 `/tmp` 下建一个临时目录存放 zip，取回后即删除。取回的文件在选择保存位置之前暂存在数据目录的
+  `bugreports/`（未加密），7 天后自动清理；桌面版保存成功后立即删除暂存副本。
+
+Bug Report 里各目录的含义见官方文档 [Bug Report 分析](https://docs.guance.com/datakit/bug-report-how-to/)。
+
 ## 部署方式
 
 ### macOS
@@ -210,11 +232,11 @@ DataKit Manager 把这些步骤收进一个界面：它先检查每个集群 / �
 ### Web 版：Docker
 
 ```bash
-docker load -i datakit-manager-web-1.3.0-linux-amd64.tar
+docker load -i datakit-manager-web-1.4.0-linux-amd64.tar
 docker run -d --name datakit-manager -p 8080:8080 \
   -e DKM_PASSWORD='换成你的密码' \
   -e DKM_SECRET_KEY='换成一串随机字符' \
-  -v dkm-data:/data datakit-manager:1.3.0
+  -v dkm-data:/data datakit-manager:1.4.0
 # 浏览器打开 http://<主机>:8080 ，用户名 admin
 ```
 
@@ -233,7 +255,7 @@ containerd 节点用 `ctr -n k8s.io images import <tar>` 导入镜像。
 不用容器时，直接运行 `datakit-manager-server-<版本>-linux-<架构>`：
 
 ```bash
-DKM_PASSWORD='你的密码' DKM_DATA_DIR=/var/lib/datakit-manager ./datakit-manager-server-1.3.0-linux-amd64
+DKM_PASSWORD='你的密码' DKM_DATA_DIR=/var/lib/datakit-manager ./datakit-manager-server-1.4.0-linux-amd64
 ```
 
 ### Web 版的环境变量
@@ -305,6 +327,7 @@ StatefulSet / Deployment 部署的 DataKit 处理方式相同，只是改的是�
 - `secret.key`：加密密钥
 - `backups/<id>/`：每次变更前的备份，以及通过本工具应用过的安装 YAML
 - `cache/`：为离线安装下载的 DataKit 安装包
+- `bugreports/`：导出的 Bug Report 暂存（未加密，7 天后自动清理）
 
 **导入的 kubeconfig 和 SSH 私钥以 AES-256-GCM 加密后保存**，磁盘上没有明文（Web 版上传的临时文件也是加密的）。
 加密密钥由程序首次运行时随机生成，保存在 `secret.key`（权限 0600）。旧版本留下的明文 kubeconfig 会在启动时自动加密并删除原文件。
@@ -318,7 +341,7 @@ StatefulSet / Deployment 部署的 DataKit 处理方式相同，只是改的是�
 ## 所需权限
 
 日常配置：kubeconfig 用户需要在 DataKit 命名空间内读写 `daemonsets` / `statefulsets` / `deployments`（并能列出这三种资源）和 `configmaps`，读 `pods`、`pods/log`，
-访问 `pods/proxy`（读取 DataKit 的 `/metrics`），以及 `pods/exec`（读取 Pod 里实际生效的配置；conf 目录已持久化时也用它写入配置文件）。
+访问 `pods/proxy`（读取 DataKit 的 `/metrics`），以及 `pods/exec`（读取 Pod 里实际生效的配置；conf 目录已持久化时也用它写入配置文件；导出 Bug Report 也通过它在 Pod 里执行命令）。
 
 安装 DataKit / Operator：还需要创建 Namespace、ClusterRole、ClusterRoleBinding、MutatingWebhookConfiguration 的权限（通常是集群管理员）。
 
@@ -341,7 +364,7 @@ Windows 包和 Web 版可以在 macOS / Linux 上构建。
 
 | 变量 | 说明 |
 |---|---|
-| `VERSION=1.3.0` | 应用版本号，默认取 `wails.json` 的 `productVersion` |
+| `VERSION=1.4.0` | 应用版本号，默认取 `wails.json` 的 `productVersion` |
 | `CN_MIRROR=0` | 不使用国内镜像（默认使用 goproxy.cn / npmmirror / 阿里云 Go 镜像） |
 | `WEB_ARCH="amd64"` | Web 版只构建指定架构 |
 | `WEB_IMAGE=registry.local/obs/datakit-manager` | Web 镜像名 |
@@ -379,7 +402,7 @@ internal/dk             DataKit 探测、变更计划与应用、指标解析、
 internal/dk/templates   官方 datakit.yaml / datakit-operator.yaml
 internal/catalog        内置的官方采集器示例（samples.json）
 frontend/src/collectors 采集器表单定义（index.ts）与保留注释的 TOML 局部修改（patch.ts）
-frontend/src/views      页面：概览、采集器、环境变量、Operator、主机、安装向导、批量安装
+frontend/src/views      页面：概览、采集器、环境变量、Operator、主机、安装向导、批量安装、Bug Report
 tools/mkimage           不依赖 Docker 生成容器镜像 tar
 deploy/                 Web 版的 Kubernetes 部署示例与 Dockerfile
 ```

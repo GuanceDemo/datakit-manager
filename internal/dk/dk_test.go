@@ -642,3 +642,38 @@ func TestLiveSyncConfigMap(t *testing.T) {
 		t.Fatalf("%v %+v", err, in)
 	}
 }
+
+func TestBugReport(t *testing.T) {
+	var cmds [][]string
+	c := &Client{Namespace: "datakit"}
+	c.execFn = func(_ context.Context, pod, container string, cmd []string, _ []byte) (string, error) {
+		cmds = append(cmds, cmd)
+		switch {
+		case cmd[0] == "sh" && cmd[2] == BugReportScript:
+			if pod != "dk-a" || container != "datakit" || cmd[4] != Binary || cmd[5] != "--disable-profile" {
+				t.Fatalf("unexpected exec %s/%s %v", pod, container, cmd[3:])
+			}
+			return BugReportDirPrefix + "42/info-1.zip\nbug report saved to local file info-1.zip\n", nil
+		case cmd[0] == "cat":
+			return "PK\x03\x04\x00\xffzip", nil
+		case cmd[0] == "rm":
+			return "", nil
+		}
+		return "", fmt.Errorf("unexpected command %v", cmd)
+	}
+	name, data, out, err := c.BugReport(context.Background(), "dk-a", "datakit", BugReportOptions{DisableProfile: true})
+	if err != nil || name != "info-1.zip" || string(data) != "PK\x03\x04\x00\xffzip" || !strings.Contains(out, "saved") {
+		t.Fatalf("%v %q %q %q", err, name, data, out)
+	}
+	if last := cmds[len(cmds)-1]; last[0] != "rm" || last[2] != BugReportDirPrefix+"42" {
+		t.Fatalf("staging dir not removed: %v", cmds)
+	}
+	if _, _, _, err := c.BugReport(context.Background(), "", "datakit", BugReportOptions{}); err == nil {
+		t.Fatal("a pod must be chosen")
+	}
+	for _, bad := range []string{"/etc/passwd", BugReportDirPrefix + "1/../../etc/x.zip", BugReportDirPrefix + "1/a b.zip", BugReportDirPrefix + "1/x/y.zip"} {
+		if _, _, err := ParseBugReportOutput(bad + "\nlog"); err == nil {
+			t.Fatalf("%q must be rejected", bad)
+		}
+	}
+}

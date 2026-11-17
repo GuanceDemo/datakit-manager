@@ -455,3 +455,33 @@ func (c *Conn) Logs(ctx context.Context, lines int) (string, error) {
 	}
 	return c.run(ctx, `tail -n "$1" /var/log/datakit/log 2>/dev/null || journalctl -u datakit -n "$1" --no-pager 2>/dev/null || echo "没有找到 DataKit 日志"`, nil, strconv.Itoa(lines))
 }
+
+// BugReport runs `datakit debug --bug-report` on the host and fetches the resulting zip.
+func (c *Conn) BugReport(ctx context.Context, o dk.BugReportOptions) (name string, data []byte, output string, err error) {
+	out, err := c.run(ctx, dk.BugReportScript, nil, c.binary(), o.Flags())
+	if err != nil {
+		if msg := strings.TrimSpace(out); msg != "" {
+			return "", nil, msg, fmt.Errorf("%w\n%s", err, msg)
+		}
+		return "", nil, "", err
+	}
+	remote, output, err := dk.ParseBugReportOutput(out)
+	if err != nil {
+		return "", nil, output, err
+	}
+	defer func() {
+		cctx, cancel := context.WithTimeout(context.WithoutCancel(ctx), 20*time.Second)
+		defer cancel()
+		_, _ = c.run(cctx, `rm -rf "$(dirname "$1")"`, nil, remote)
+	}()
+	raw, err := c.run(ctx, `cat "$1"`, nil, remote)
+	if err != nil {
+		return "", nil, output, fmt.Errorf("取回 bug report 失败：%w", err)
+	}
+	data = []byte(raw)
+	if err := dk.CheckZip(data); err != nil {
+		return "", nil, output, err
+	}
+	i := strings.LastIndex(remote, "/")
+	return remote[i+1:], data, output, nil
+}

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Alert, Button, Card, Descriptions, Form, Input, Modal, Result, Segmented, Select, Space, Spin, Statistic, Tabs, Tag, Typography, message } from 'antd'
-import { CheckCircleFilled, CloseCircleFilled, FileTextOutlined, ReloadOutlined } from '@ant-design/icons'
+import { BugOutlined, CheckCircleFilled, CloseCircleFilled, FileTextOutlined, ReloadOutlined } from '@ant-design/icons'
 import { api, errMsg } from '../api'
 import type { Host, HostInfo, PodMetrics, Sample } from '../types'
 import { CodeEditor, LogView, Logo } from '../components'
@@ -9,6 +9,7 @@ import { fmtBytes, fmtDuration } from '../util'
 import { ConfManager, type ConfRow } from './ConfManager'
 import { MetricsPanels, enabledCount } from './MetricsPanels'
 import type { ApplyRequest } from './ApplyModal'
+import { BugReportModal } from './BugReport'
 
 /** Install (or upgrade) DataKit on one host with the official installer. */
 export function HostInstallModal({ host, open, upgrade, onClose }: { host: Host; open: boolean; upgrade?: boolean; onClose: (installed: boolean) => void }) {
@@ -79,6 +80,7 @@ export function HostView({ host, samples, refreshKey, onApply }: { host: Host; s
   const [tab, setTab] = useState('overview')
   const [install, setInstall] = useState<'install' | 'upgrade' | null>(null)
   const [logs, setLogs] = useState<{ text: string; loading: boolean } | null>(null)
+  const [bugReport, setBugReport] = useState(false)
   const [main, setMain] = useState('')
 
   const loadMetrics = useCallback(() => {
@@ -139,6 +141,7 @@ export function HostView({ host, samples, refreshKey, onApply }: { host: Host; s
       </div>
       <Card size="small" title="主机信息" extra={<Space>
         <Button size="small" icon={<FileTextOutlined />} onClick={showLogs}>日志</Button>
+        <Button size="small" icon={<BugOutlined />} onClick={() => setBugReport(true)}>导出 Bug Report</Button>
         <Button size="small" onClick={() => setInstall('upgrade')}>升级</Button>
         <Button size="small" icon={<ReloadOutlined />} onClick={() => hostApply('重启 DataKit', [], [], [])}>重启 DataKit</Button>
       </Space>}>
@@ -186,6 +189,7 @@ export function HostView({ host, samples, refreshKey, onApply }: { host: Host; s
         ) },
       ]} />
       <HostInstallModal host={host} open={!!install} upgrade={install === 'upgrade'} onClose={(ok) => { setInstall(null); if (ok) load() }} />
+      <BugReportModal target={bugReport ? { kind: 'host', id: host.id, name: host.name } : null} onClose={() => setBugReport(false)} />
       <Modal open={!!logs} title={`DataKit 日志 — ${host.name}`} width={1000} footer={null} onCancel={() => setLogs(null)}>
         {logs?.loading ? <Spin style={{ display: 'block', margin: 40 }} /> : <LogView value={logs?.text ?? ''} />}
       </Modal>

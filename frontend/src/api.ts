@@ -4,7 +4,7 @@
 //   - dev:     an in-browser mock (`npm run dev` only)
 import type {
   AppInfo, ApplyResult, ChangeSet, Cluster, ContextInfo, DataKitInstall, Host, HostChanges, HostImport, HostImportResult, HostInfo, HostInstallOptions,
-  Inspection, InstallDefaults, OperatorInstall, OperatorStatus, PlanView, PodMetrics, RolloutStatus, Sample, Versions,
+  Inspection, InstallDefaults, OperatorInstall, OperatorStatus, PlanView, PodMetrics, RolloutStatus, Sample, Versions, BugReportFile, BugReportOptions,
 } from './types'
 
 export interface Backend {
@@ -53,14 +53,32 @@ export interface Backend {
   /** desktop only */
   PickSSHKey(): Promise<string>
   /** desktop only */
+  BugReport(id: string, pod: string, node: string, container: string, o: BugReportOptions): Promise<BugReportFile>
+  HostBugReport(id: string, o: BugReportOptions): Promise<BugReportFile>
+  /** desktop: save dialog, resolves to the saved path ('' = cancelled); web: browser download, resolves to 'download' */
+  SaveBugReport(file: string): Promise<string>
   OpenDataDir(): Promise<void>
 }
 
 let backend: Backend | null = null
 
+/** web: fetch the exported zip with the API's credentials and hand it to the browser as a download */
+async function downloadBugReport(file: string): Promise<string> {
+  const res = await fetch('/download/bugreport/' + encodeURIComponent(file), { credentials: 'same-origin', headers: { 'X-Requested-With': 'datakit-manager' } })
+  if (res.status === 401) throw new Error('登录已失效，请刷新页面重新登录')
+  if (!res.ok) throw new Error((await res.text().catch(() => '')) || `下载失败（${res.status}）`)
+  const url = URL.createObjectURL(await res.blob())
+  const a = document.createElement('a')
+  a.href = url; a.download = file
+  document.body.appendChild(a); a.click(); a.remove()
+  setTimeout(() => URL.revokeObjectURL(url), 60_000)
+  return 'download'
+}
+
 function httpBackend(): Backend {
   return new Proxy({} as Backend, {
     get: (_t, method: string) => async (...args: unknown[]) => {
+      if (method === 'SaveBugReport') return downloadBugReport(String(args[0]))
       const res = await fetch('/api/' + method, {
         method: 'POST', credentials: 'same-origin',
         headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'datakit-manager' },

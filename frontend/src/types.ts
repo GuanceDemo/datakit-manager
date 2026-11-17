@@ -73,3 +73,7 @@ export interface HostInstallOptions { dataway: string; defInputs?: string; globa
 export interface HostImport { keyPath?: string; keyContent?: string; passphrase?: string; hosts: string[] }
 export interface HostImportResult { added: Host[]; errors: string[] }
 export interface Versions { datakit: string; error: string }
+
+export interface BugReportOptions { disableProfile: boolean; nmetrics: number }
+/** an exported bug report kept (temporarily) in the backend's data directory */
+export interface BugReportFile { file: string; path: string; size: number; output: string }

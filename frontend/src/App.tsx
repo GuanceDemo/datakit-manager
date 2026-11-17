@@ -227,7 +227,7 @@ export default function App() {
                   ]} />
               ) : (
                 <Tabs activeKey={tab} onChange={setTab} items={[
-                  { key: 'overview', label: '概览', children: <Overview clusterId={cluster.id} ins={ins} onRestart={() => setRequest({ title: '重启 DataKit', change: {}, diffs: [] })} /> },
+                  { key: 'overview', label: '概览', children: <Overview clusterId={cluster.id} clusterName={cluster.name} ins={ins} onRestart={() => setRequest({ title: '重启 DataKit', change: {}, diffs: [] })} /> },
                   { key: 'collectors', label: `采集器配置${ins.confFiles.length ? `（${ins.confFiles.length}）` : ''}`, children: <Collectors ins={ins} samples={samples} onApply={setRequest} /> },
                   { key: 'env', label: '环境变量', children: <EnvVars ins={ins} onApply={setRequest} /> },
                   { key: 'operator', label: 'Operator', children: <Operator key={opKey} cluster={cluster} onApply={setRequest} /> },

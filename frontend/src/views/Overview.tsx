@@ -1,17 +1,19 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Alert, Button, Card, Descriptions, Empty, Modal, Select, Space, Spin, Statistic, Table, Tag, Tooltip, Typography } from 'antd'
-import { CheckCircleFilled, CloseCircleFilled, FileTextOutlined, ReloadOutlined, SyncOutlined } from '@ant-design/icons'
+import { BugOutlined, CheckCircleFilled, CloseCircleFilled, FileTextOutlined, ReloadOutlined, SyncOutlined } from '@ant-design/icons'
 import { api, errMsg } from '../api'
 import type { Inspection, Pod, PodMetrics } from '../types'
 import { LogView } from '../components'
 import { MetricsPanels, enabledCount } from './MetricsPanels'
+import { BugReportModal } from './BugReport'
 import { fmtBytes, fmtDuration } from '../util'
 
-export function Overview({ clusterId, ins, onRestart }: { clusterId: string; ins: Inspection; onRestart: () => void }) {
+export function Overview({ clusterId, clusterName, ins, onRestart }: { clusterId: string; clusterName?: string; ins: Inspection; onRestart: () => void }) {
   const [metrics, setMetrics] = useState<PodMetrics[] | null>(null)
   const [loading, setLoading] = useState(false)
   const [err, setErr] = useState('')
   const [logs, setLogs] = useState<{ pod: string; text: string; loading: boolean } | null>(null)
+  const [bugReport, setBugReport] = useState(false)
   const w = ins.workload
 
   const load = () => {
@@ -42,7 +44,10 @@ export function Overview({ clusterId, ins, onRestart }: { clusterId: string; ins
           valueStyle={{ fontSize: 22, color: ins.persistence.mode === 'none' ? '#d97706' : undefined }} /></Card>
       </div>
 
-      <Card size="small" title="部署信息" extra={<Button size="small" icon={<ReloadOutlined />} onClick={onRestart}>重启 DataKit</Button>}>
+      <Card size="small" title="部署信息" extra={<Space>
+        <Button size="small" icon={<BugOutlined />} onClick={() => setBugReport(true)}>导出 Bug Report</Button>
+        <Button size="small" icon={<ReloadOutlined />} onClick={onRestart}>重启 DataKit</Button>
+      </Space>}>
         <Descriptions size="small" column={2} items={[
           { key: 'w', label: '工作负载', children: `${w.kind}/${w.name}（命名空间 ${ins.namespace}）` },
           { key: 'i', label: '镜像', children: <Typography.Text copyable style={{ fontSize: 13 }}>{w.image}</Typography.Text> },
@@ -74,6 +79,7 @@ export function Overview({ clusterId, ins, onRestart }: { clusterId: string; ins
       <MetricsPanels metrics={metrics} loading={loading} leader={leader}
         emptyHint={'无法读取 DataKit 指标。环境变量中声明的采集器：' + (ins.enabledInputs.join(', ') || '无')} />
 
+      <BugReportModal target={bugReport ? { kind: 'cluster', id: clusterId, name: clusterName || ins.namespace, container: w.container, pods: ins.pods } : null} onClose={() => setBugReport(false)} />
       <Modal open={!!logs} title={`日志 — ${logs?.pod}`} width={1000} footer={null} onCancel={() => setLogs(null)}>
         {logs?.loading ? <Spin style={{ display: 'block', margin: 40 }} /> : <LogView value={logs?.text ?? ''} />}
       </Modal>

@@ -2,6 +2,7 @@ package hostdk
 
 import (
 	"context"
+	"datakit-manager/internal/dk"
 	"datakit-manager/internal/hostdk/sshtest"
 	"net/http"
 	"net/http/httptest"
@@ -25,7 +26,8 @@ func fakeInstall(t *testing.T, dir, listen string) {
 	must(os.MkdirAll(filepath.Join(dir, "conf.d", "db"), 0o755))
 	must(os.MkdirAll(filepath.Join(dir, "conf.d", "host"), 0o755))
 	stub := "#!/bin/sh\nif [ \"$1\" = version ]; then echo; echo '       Version: 2.19.0'; echo '        Commit: abc'; exit 0; fi\n" +
-		"if [ \"$1\" = service ]; then echo restarted >> \"$(dirname \"$0\")/restarts\"; exit 0; fi\n"
+		"if [ \"$1\" = service ]; then echo restarted >> \"$(dirname \"$0\")/restarts\"; exit 0; fi\n" +
+		"if [ \"$1\" = debug ]; then echo \"$*\" > \"$(dirname \"$0\")/br-args\"; printf 'PK\\003\\004\\000\\377\\r\\n\\200bin' > info-1700000000000.zip; echo 'bug report saved to local file info-1700000000000.zip'; exit 0; fi\n"
 	must(os.WriteFile(filepath.Join(dir, "datakit"), []byte(stub), 0o755))
 	must(os.WriteFile(filepath.Join(dir, "conf.d", "datakit.conf"), []byte("default_enabled_inputs = [\"cpu\", \"mem\"]\n[http_api]\n  listen = \""+listen+"\"\n"), 0o644))
 	must(os.WriteFile(filepath.Join(dir, "conf.d", "db", "mysql.conf"), []byte("# prod\n[[inputs.mysql]]\n  host = \"db1\"\n"), 0o640))
@@ -136,6 +138,21 @@ func TestHostEndToEnd(t *testing.T) {
 	pm := c.Metrics(ctx, info.HTTPListen, info.Hostname)
 	if !pm.OK || pm.Version != "2.19.0" || len(pm.Feeds) != 1 || pm.Feeds[0].Name != "mysql" {
 		t.Fatalf("%+v", pm)
+	}
+
+	// bug report: the archive comes back byte for byte and the staging dir is removed
+	name, data, output, err := c.BugReport(ctx, dk.BugReportOptions{DisableProfile: true, NMetrics: 5})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if name != "info-1700000000000.zip" || string(data) != "PK\x03\x04\x00\xff\r\n\x80bin" || !strings.Contains(output, "saved to local file") {
+		t.Fatalf("%q %q %q", name, data, output)
+	}
+	if b, _ := os.ReadFile(filepath.Join(dir, "br-args")); strings.TrimSpace(string(b)) != "debug --bug-report --disable-profile --nmetrics 5" {
+		t.Fatalf("args %q", b)
+	}
+	if left, _ := filepath.Glob(dk.BugReportDirPrefix + "*"); len(left) != 0 {
+		t.Fatalf("staging dir left behind: %v", left)
 	}
 
 	// a host without DataKit

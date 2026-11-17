@@ -59,6 +59,7 @@ func main() {
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/healthz", func(w http.ResponseWriter, _ *http.Request) { _, _ = w.Write([]byte("ok")) })
+	mux.Handle("/download/bugreport/", auth(user, pass, bugReportHandler(svc)))
 	mux.Handle("/api/", auth(user, pass, apiHandler(svc)))
 	mux.Handle("/", auth(user, pass, staticHandler(frontend.Dist())))
 
@@ -124,6 +125,26 @@ func apiHandler(svc *app.Service) http.Handler {
 			return
 		}
 		reply(http.StatusOK, map[string]any{"result": result})
+	})
+}
+
+// bugReportHandler serves an exported bug report: GET /download/bugreport/<file>.
+func bugReportHandler(svc *app.Service) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodGet || r.Header.Get("X-Requested-With") != "datakit-manager" {
+			http.Error(w, "forbidden", http.StatusForbidden)
+			return
+		}
+		file := strings.TrimPrefix(r.URL.Path, "/download/bugreport/")
+		full, err := svc.BugReportPath(file)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusNotFound)
+			return
+		}
+		w.Header().Set("Content-Type", "application/zip")
+		w.Header().Set("Content-Disposition", "attachment")
+		w.Header().Set("Cache-Control", "no-store")
+		http.ServeFile(w, r, full)
 	})
 }
 

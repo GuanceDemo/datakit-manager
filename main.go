@@ -52,6 +52,38 @@ func (d *Desktop) PickSSHKey() (string, error) {
 	})
 }
 
+// SaveBugReport asks where to save an exported bug report and copies it there.
+// Returns the chosen path, or "" when the dialog was cancelled.
+func (d *Desktop) SaveBugReport(file string) (string, error) {
+	src, err := d.svc.BugReportPath(file)
+	if err != nil {
+		return "", err
+	}
+	home, _ := os.UserHomeDir()
+	dir := home
+	if st, err := os.Stat(home + "/Downloads"); err == nil && st.IsDir() {
+		dir = home + "/Downloads"
+	}
+	dst, err := runtime.SaveFileDialog(d.ctx, runtime.SaveDialogOptions{
+		Title:            "保存 Bug Report",
+		DefaultDirectory: dir,
+		DefaultFilename:  file,
+		Filters:          []runtime.FileFilter{{DisplayName: "Zip (*.zip)", Pattern: "*.zip"}},
+	})
+	if err != nil || dst == "" {
+		return "", err
+	}
+	data, err := os.ReadFile(src)
+	if err != nil {
+		return "", err
+	}
+	if err := os.WriteFile(dst, data, 0o600); err != nil {
+		return "", err
+	}
+	_ = os.Remove(src) // the user's copy is the one that counts
+	return dst, nil
+}
+
 // OpenDataDir reveals the data directory in the system file browser.
 func (d *Desktop) OpenDataDir() { runtime.BrowserOpenURL(d.ctx, "file://"+d.svc.DataDir()) }
 

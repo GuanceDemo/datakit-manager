@@ -174,5 +174,8 @@ export const mockBackend: Backend = {
   async HostMetrics(id) { return (await this.Metrics(id, '')).slice(0, 1).map((m) => ({ ...m, pod: 'web-01', node: 'web-01', electedId: '' })) },
   async HostLogs() { return '2026-11-17T00:10:01 INFO io feed 12 points from cpu\n' },
   async HostInstall(id) { await wait(1800); hostInstalled.add(id); return 'Installing DataKit 2.19.0 ...\nInstall Success!\n' },
+  async BugReport(_id, pod, node) { await wait(2500); return { file: `bugreport-prod-shanghai-${node}-${pod}-20261117-111500.zip`, path: '', size: 3_480_000, output: 'bug report saved to local file info-1794885300000.zip' } },
+  async HostBugReport() { await wait(2500); return { file: 'bugreport-order-1-10.0.0.11-20261117-111500.zip', path: '', size: 2_150_000, output: 'bug report saved to local file info-1794885300000.zip' } },
+  async SaveBugReport() { return 'download' },
   async OpenDataDir() {},
 }

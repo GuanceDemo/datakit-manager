@@ -62,7 +62,7 @@ spec:
         fsGroup: 65532
       containers:
         - name: datakit-manager
-          image: datakit-manager:1.3.0      # 改成你仓库里的镜像地址
+          image: datakit-manager:1.4.0      # 改成你仓库里的镜像地址
           imagePullPolicy: IfNotPresent
           env:
             - name: DKM_USERNAME

@@ -11,7 +11,7 @@
   },
   "info": {
     "productName": "DataKit Manager",
-    "productVersion": "1.3.0",
+    "productVersion": "1.4.0",
     "comments": "多集群 DataKit 配置管理工具"
   }
 }
